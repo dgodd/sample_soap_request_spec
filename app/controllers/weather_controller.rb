@@ -2,8 +2,12 @@ class WeatherController < ApplicationController
   respond_to :json
 
   def by_zip
-    response = client.call :get_city_forecast_by_zip, message: { "ZIP" => params[:zip]  }
-    respond_with response.body[:get_city_forecast_by_zip_response][:get_city_forecast_by_zip_result]
+    data = client.call :get_city_forecast_by_zip, message: { "ZIP" => params[:zip]  }
+    data = data.body[:get_city_forecast_by_zip_response][:get_city_forecast_by_zip_result]
+    forecast = data.delete(:forecast_result)[:forecast].first rescue {}
+    data[:forecast] = forecast
+
+    respond_with data
   end
 
   private

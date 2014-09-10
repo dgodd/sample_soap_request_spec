@@ -17,7 +17,7 @@ RSpec.describe WeatherController, :type => :controller do
 
     it "calls get_city_forecast_by_zip" do
       get :by_zip, zip: 10028, format: :json
-      expect(response.body).to eq '{"data":"from soap service"}'
+      expect(response.body).to eq '{"data":"from soap service","forecast":{}}'
     end
   end
 end
