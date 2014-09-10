@@ -1,8 +1,6 @@
 class IdServiceController < ApplicationController
-  respond_to :json
-
   def index
-    respond_with(client.call(:generate).body.try(:[], :generate_response))
+    render json: client.call(:generate).body.try(:[], :generate_response)
   end
 
   private
